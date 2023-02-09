@@ -14,7 +14,7 @@
 
 1. Clone this repository and navigate to its directory by using the commands:
     ```
-    https://github.com/tomskoralis/cats-vs-dogs
+    git clone https://github.com/tomskoralis/cats-vs-dogs
     cd cats-vs-dogs/
     ```
 2. Install the required packages using the command:
