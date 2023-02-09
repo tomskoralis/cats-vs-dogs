@@ -26,11 +26,11 @@ $(document).ready(() => {
 const getAnimals = () =>
     $.ajax({
         type: 'GET',
-        url: '/api/v1/index',
+        url: '/api/v1/animals',
     })
         .done((data) => {
             animals = JSON.parse(data).animals;
-            sortAnimals(animals);
+            sortAllAnimals(animals);
         })
         .fail((error) => {
             setErrorMessage(JSON.parse(error.responseText).error);
@@ -39,7 +39,7 @@ const getAnimals = () =>
 const storeAnimal = (species, name) =>
     $.ajax({
         type: 'PUT',
-        url: '/api/v1/store/' + species,
+        url: '/api/v1/animals/' + species,
         data: `name=${name}`
     })
         .done((data) => {
@@ -56,7 +56,7 @@ const storeAnimal = (species, name) =>
 const deleteAnimals = () =>
     $.ajax({
         type: 'DELETE',
-        url: '/api/v1/delete',
+        url: '/api/v1/animals',
     })
         .done(() => {
             clearAll();
@@ -65,7 +65,7 @@ const deleteAnimals = () =>
             setErrorMessage(JSON.parse(error.responseText).error);
         });
 
-const sortAnimals = (animals) => {
+const sortAllAnimals = (animals) => {
     $.each(animals, (_, animal) => {
         sortAnimal(animal);
     });
