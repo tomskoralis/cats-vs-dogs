@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Responses\Json;
+use App\Responses\Redirect;
+use App\Responses\Template;
 use FastRoute\{Dispatcher, RouteCollector};
 use function FastRoute\simpleDispatcher;
 
 require_once 'routes/web.php';
+require_once 'routes/api.php';
 
 class Router
 {
@@ -16,6 +20,10 @@ class Router
     {
         self::$dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
             foreach (ROUTES as $route) {
+                $routeCollector->addRoute($route[0], $route[1], $route[2]);
+            }
+
+            foreach (API_ROUTES as $route) {
                 $routeCollector->addRoute($route[0], $route[1], $route[2]);
             }
         });
@@ -49,6 +57,9 @@ class Router
                     Application::render($response->getPath(), $response->getParameters());
                 } elseif ($response instanceof Redirect) {
                     Application::redirect($response->getPath());
+                } elseif ($response instanceof Json) {
+                    http_response_code($response->getCode());
+                    echo $response->getJson();
                 }
         }
     }

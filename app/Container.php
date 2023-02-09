@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Repositories\AnimalsRepository;
+use App\Repositories\PostgresSqlAnimalsRepository;
+use function DI\create;
+
 class Container
 {
     private static array $instances = [];
@@ -10,6 +14,10 @@ class Container
     private function __construct()
     {
         self::$container = new \DI\Container();
+        self::$container->set(
+            AnimalsRepository::class,
+            create(PostgresSqlAnimalsRepository::class)
+        );
     }
 
     public static function get(string $className)

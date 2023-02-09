@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Template;
+use App\Responses\Template;
 
 class HomeController
 {
